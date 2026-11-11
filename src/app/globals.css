@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sight-bg: #050711;
+  --sight-surface: #090d1b;
+  --sight-panel: #0c1224;
+  --sight-line: #202844;
+  --sight-line-strong: #313b66;
+  --sight-fg: #f4f7ff;
+  --sight-muted: #929db7;
+  --sight-accent: #7c3aed;
+  --sight-accent-strong: #8b5cf6;
+  --sight-accent-blue: #2563eb;
+  --sight-cyan: #22d3ee;
+  --sight-pos: #42d392;
+  --sight-neg: #ff647c;
+  --sight-warn: #ffcb69;
+  --sight-info: #22d3ee;
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--sight-bg);
+  color: var(--sight-fg);
+  height: 100%;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  border-color: var(--sight-line);
+}
+
+::selection {
+  background: rgba(120, 87, 255, 0.35);
+}
+
+/* Scrollbars */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--sight-line);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--sight-line-strong);
+}
+
+@layer components {
+  .panel {
+    @apply bg-panel border border-line rounded-lg;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded border border-line px-1.5 py-0.5 text-2xs text-muted bg-surface;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-semibold text-white transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40;
+    background: linear-gradient(100deg, #7c3aed, #4f46e5, #2563eb);
+    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.28);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 8px 24px rgba(120, 87, 255, 0.4);
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-line bg-surface px-3 py-2 text-sm text-fg transition-colors hover:border-line-strong disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .input {
+    @apply w-full rounded-md border border-line bg-surface px-3 py-2 text-sm text-fg placeholder:text-muted/60 outline-none focus:border-info/60;
+  }
+  .skeleton {
+    @apply animate-pulse rounded bg-line/60;
+  }
+  .focus-ring {
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-info/70;
+  }
+}
+
+/* Respect reduced-motion: disable decorative animation globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

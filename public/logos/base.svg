@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Base">
+  <!-- Official Base mark: brand-blue circle with the white slot on the left half -->
+  <circle cx="12" cy="12" r="12" fill="#0052FF"/>
+  <path fill="#fff" d="M3.68 9.73h8.32v4.54H3.68z"/>
+</svg>

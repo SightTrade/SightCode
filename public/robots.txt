@@ -1,0 +1,7 @@
+# SIGHT terminal — public crawlers welcome on pages, not on data APIs.
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Wallet pages expose user-supplied addresses; keep them out of search indexes.
+Noindex: /wallet/

@@ -1,0 +1,52 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# env
+.env
+.env.local
+.env.*.local
+
+# misc
+.DS_Store
+Thumbs.db
+*.log
+.pgdata/
+
+# package manager / CI tooling
+coverage/
+.vercel/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env — ignore ALL env files except explicit placeholder examples
+.env.*
+!.env.example
+!.env.*.example
+
+# local diagnostics, one-off probes and test dumps (root-level, not app code)
+/*.txt
+/*.bat
+/*.cjs
+/*.ps1
+/*.png
+/*.done
+/_*.json
+s2.json
+search-live.json
+token-live.json
+({d
+{
+{'
+{const
+fs.writeFileSync('_smoke3c.json
+fs.writeFileSync('_smoke3c.json'
+_probe5.txt'
+_server5.txt'
