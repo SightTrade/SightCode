@@ -188,16 +188,18 @@ export function createPumpPortalAdapter(events: PumpPortalAdapterEvents) {
       }
     });
     ws.addEventListener("error", () => {
-      // Node's native WebSocket fires ERROR without CLOSE for refused/broken
-      // connections — reconnect from here (guarded against double-schedule).
+      // Null out BEFORE close(): closing a never-opened socket can make the
+      // runtime re-dispatch error/close synchronously; if `ws` were still set,
+      // each nested dispatch would call close() again (unbounded recursion).
+      const sock = ws;
+      ws = null;
       lastError = "websocket error";
       events.onStatus("down", lastError);
       try {
-        ws?.close();
+        sock?.close();
       } catch {
         // ignore
       }
-      ws = null;
       scheduleReconnect();
     });
     ws.addEventListener("close", () => {
@@ -237,12 +239,14 @@ export function createPumpPortalAdapter(events: PumpPortalAdapterEvents) {
       if (reconnectTimer) clearTimeout(reconnectTimer);
       staleTimer = null;
       reconnectTimer = null;
+      // Null out BEFORE close() — same re-entrancy rule as the error handler.
+      const sock = ws;
+      ws = null;
       try {
-        ws?.close();
+        sock?.close();
       } catch {
         // ignore
       }
-      ws = null;
       events.onStatus("disabled", null);
     },
     health() {

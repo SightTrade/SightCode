@@ -25,7 +25,7 @@ module.exports = {
       name: "sight",
       // Run the Next.js CLI directly (no npm wrapper) so signals reach Node.
       script: "node_modules/next/dist/bin/next",
-      args: "start -p 3210",
+      args: "start -p 3210 -H 127.0.0.1",
       // Adjust to the actual deploy directory on the server.
       cwd: "/opt/sight",
       // Single instance is required (in-memory rate limiter + discovery hub).
