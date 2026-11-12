@@ -113,9 +113,29 @@ email/commit them.
 | `HELIUS_API_KEY` | optional standalone override (already covered by `SOLANA_RPC_URL`) | optional |
 | `ETHERSCAN_API_KEY` / `BSCSCAN_API_KEY` / `BASESCAN_API_KEY` | existence-check only today | optional |
 | `JUPITER_BASE` / `DEXSCREENER_BASE` / `GECKOTERMINAL_BASE` / `PUMPPORTAL_WS_URL` | endpoint overrides (defaults verified) | optional |
+| `NEXT_PUBLIC_SIGHT_TOKEN_MINT` | header official-token CA display (public) — placeholder default built in; set the real official mint when announced | optional (public) |
 
 There is **no database and no `DATABASE_URL`** — the app is stateless
 server-side (watchlists/vault live in the visitor's browser).
+
+### Official SIGHT token mint (`NEXT_PUBLIC_SIGHT_TOKEN_MINT`)
+
+Public (browser-visible) configuration for the official SIGHT token CA shown
+in the header. Until the official mint is announced it stays at the built-in
+placeholder, and the header honestly shows **"SIGHT TOKEN — COMING SOON"** —
+the placeholder is never treated as a tradeable token (no price, balance, or
+swap requests are made for it). When the real official mint is announced:
+
+1. Set `NEXT_PUBLIC_SIGHT_TOKEN_MINT=<official mint>` in the production
+   environment (Hostinger VPS: `/opt/sight/.env.local`; Hostinger managed
+   hosting: the Environment Variables section).
+2. **Rebuild and redeploy.** `NEXT_PUBLIC_*` values are embedded into browser
+   assets during `npm run build` — changing the variable alone does NOT update
+   an already-built frontend bundle.
+3. The header then shows the shortened CA with copy-to-clipboard and a Solscan
+   link. Configuring an address never enables trading by itself — trading
+   availability continues to depend on the verified swap infrastructure and
+   real token data.
 
 ## 6. Nginx reverse proxy + HTTPS
 
