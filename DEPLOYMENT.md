@@ -120,22 +120,25 @@ server-side (watchlists/vault live in the visitor's browser).
 
 ### Official SIGHT token mint (`NEXT_PUBLIC_SIGHT_TOKEN_MINT`)
 
-Public (browser-visible) configuration for the official SIGHT token CA shown
-in the header. Until the official mint is announced it stays at the built-in
-placeholder, and the header honestly shows **"SIGHT TOKEN — COMING SOON"** —
-the placeholder is never treated as a tradeable token (no price, balance, or
-swap requests are made for it). When the real official mint is announced:
+Public (browser-visible) configuration for the **SIGHT TOKEN CA** shown in the
+header as a permanent, copyable display: the shortened CA, a copy action that
+places the complete address on the clipboard (with "Copied!" feedback), and a
+Solscan explorer link on wide screens. The display is informational only — it
+performs no price, liquidity, or swap requests, and configuring an address
+never enables trading by itself (trading depends on the verified swap
+infrastructure and real token data).
+
+Until the official mint is announced the built-in placeholder is displayed
+(`1nc1nerator…1111`). When the real official mint is announced:
 
 1. Set `NEXT_PUBLIC_SIGHT_TOKEN_MINT=<official mint>` in the production
    environment (Hostinger VPS: `/opt/sight/.env.local`; Hostinger managed
    hosting: the Environment Variables section).
 2. **Rebuild and redeploy.** `NEXT_PUBLIC_*` values are embedded into browser
    assets during `npm run build` — changing the variable alone does NOT update
-   an already-built frontend bundle.
-3. The header then shows the shortened CA with copy-to-clipboard and a Solscan
-   link. Configuring an address never enables trading by itself — trading
-   availability continues to depend on the verified swap infrastructure and
-   real token data.
+   an already-built frontend bundle. No source-code changes are needed.
+3. The header automatically shows the new address (shortened form, copied
+   value, and explorer link all follow the configured variable).
 
 ## 6. Nginx reverse proxy + HTTPS
 

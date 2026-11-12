@@ -3,16 +3,18 @@
  * official SIGHT token mint across the app.
  *
  * The mint is public configuration (NEXT_PUBLIC_* → embedded into browser
- * assets at BUILD time). Until the official SIGHT token mint is announced,
- * the well-known placeholder below is used and the UI must present it as
- * "coming soon" — never as a live, tradeable official token.
+ * assets at BUILD time). The header always shows the configured CA as an
+ * informational, copyable address; it never triggers price, liquidity, or
+ * swap requests, and configuring an address never enables trading.
  *
  * Rules enforced here:
  *  - The configured value is trimmed; whitespace never changes the address.
  *  - Structural validity is verified with the existing Solana PublicKey
  *    implementation (no new dependency).
- *  - The placeholder is always recognizable via an exact-match check and is
- *    never presented as a real official mint.
+ *  - The placeholder is always recognizable via an exact-match check
+ *    (`isPlaceholder`) and `isOfficialSightMintLive()` stays available for
+ *    future gating (e.g. enabling trade flows only once the real mint is
+ *    configured).
  *  - There is NO fallback to any other token address: when the variable is
  *    missing we use the declared placeholder, nothing else. When an invalid
  *    value is configured, it is reported invalid — never silently replaced.
@@ -20,8 +22,10 @@
 import { PublicKey } from "@solana/web3.js";
 
 /**
- * Placeholder mint shown until the official SIGHT token CA is announced.
+ * Placeholder mint configured until the official SIGHT token CA is announced.
  * A syntactically valid Solana burn-style address that is NOT a real token.
+ * The header displays it as an informational, copyable CA — it is never used
+ * for price, liquidity, or swap requests.
  */
 export const SIGHT_TOKEN_PLACEHOLDER_MINT =
   "1nc1nerator11111111111111111111111111111111";
